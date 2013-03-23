@@ -1,0 +1,43 @@
+{
+  "authors": ["Caleb James DeLisle <cjd@hyperboria.name> (http://cjd.hypebox.net)",
+  "name": "nthen",
+  "description": "Simple intuitive asynchronous control flow.",
+  "version": "1",
+
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cjdelisle/nthen"
+  },
+
+  "keywords": [
+    "async",
+    "flow",
+    "chaining"
+  ],
+
+  "directories": {
+    "lib": "./lib",
+  },
+
+  "main": "./lib/nthen.js",
+
+  "bugs": {
+    "url": "http://github.com/cjdelisle/nthen/issues"
+  },
+
+  "devDependencies": {
+    "tap": "~0.4.0"
+  },
+
+  "scripts": {
+    "test": "tap ./test"
+  },
+
+  "homepage": "https://github.com/cjdelisle/nthen",
+
+  "licenses": [
+    {
+      "type": "Public Domain",
+    }
+  ]
+}
