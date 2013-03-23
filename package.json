@@ -1,8 +1,8 @@
 {
-  "authors": ["Caleb James DeLisle <cjd@hyperboria.name> (http://cjd.hypebox.net)",
+  "author": "Caleb James DeLisle <cjd@hyperboria.name> (http://cjd.hypebox.net)",
   "name": "nthen",
   "description": "Simple intuitive asynchronous control flow.",
-  "version": "1",
+  "version": "0.1.0",
 
   "repository": {
     "type": "git",
@@ -16,7 +16,7 @@
   ],
 
   "directories": {
-    "lib": "./lib",
+    "lib": "./lib"
   },
 
   "main": "./lib/nthen.js",
@@ -37,7 +37,7 @@
 
   "licenses": [
     {
-      "type": "Public Domain",
+      "type": "Public Domain"
     }
   ]
 }
