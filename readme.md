@@ -104,3 +104,15 @@ The variable names used in this readme are only for example and to make you mad.
 ## License
 
 Public Domain
+
+## ChangeLog
+
+* 1.0 The first versions, practically perfect in every way.
+* 1.1 Ok maybe practically perfect was a stretch, fixed a bug which causes incorrect behavior if
+the the first nThen function returns synchronously.
+
+    nThen(function(waitFor) {
+        console.log("this function returns synchronously");
+    }).nThen(function(waitFor) {
+        console.log("This never gets executed because nThen 1.0 has a bug :(");
+    });

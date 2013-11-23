@@ -1,8 +1,8 @@
 {
-  "author": "Caleb James DeLisle <cjd@hyperboria.name> (http://cjd.hypebox.net)",
+  "author": "Caleb James DeLisle <cjd@hyperboria.ca> (http://cjd.hypebox.net)",
   "name": "nthen",
   "description": "Simple intuitive asynchronous control flow.",
-  "version": "0.1.0",
+  "version": "0.1.1",
 
   "repository": {
     "type": "git",

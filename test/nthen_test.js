@@ -60,3 +60,19 @@ test("make sure nThen works", function (t) {
         t.end();
     });
 });
+
+test("no callback first function", function (t) {
+    var to = setTimeout(function() {
+        t.notOk(1);
+        t.end();
+    }, 100);
+    var i = 0;
+    nThen(function(waitFor) {
+        i++;
+        // waitFor is never called
+    }).nThen(function(waitfor) {
+        t.equals(i, 1);
+        clearTimeout(to);
+        t.end();
+    });
+});
