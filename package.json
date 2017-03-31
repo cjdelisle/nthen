@@ -2,7 +2,7 @@
   "author": "Caleb James DeLisle",
   "name": "nthen",
   "description": "Simple intuitive asynchronous control flow.",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "repository": {
     "type": "git",
     "url": "https://github.com/cjdelisle/nthen"

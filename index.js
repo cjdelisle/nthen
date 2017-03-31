@@ -4,12 +4,11 @@
  * Sat Mar 23 01:42:29 EDT 2013
  * Public Domain or MIT License
  */
-;(function() {
 /*::
-type WaitFor_t = (...Array<any>)=>(...Array<any>)=>void;
+type WaitFor_t = ((...any)=>void)=>((...any)=>void);
 type NthenRet_t = { nThen: Nthen_t, orTimeout:((WaitFor_t)=>void, number)=>NthenRet_t };
 type Nthen_t = ((WaitFor_t)=>void)=>NthenRet_t;
-*/
+module.exports = */ (function() {
 var nThen /*:Nthen_t*/ = function(next) {
     var funcs = [];
     var calls = 0;
@@ -49,7 +48,6 @@ var nThen /*:Nthen_t*/ = function(next) {
     };
     return ret.nThen(next);
 };
-
 if (typeof(window) === 'object') {
     if (typeof(window.define) === 'function') {
         // AMD (require.js etc)
@@ -62,5 +60,5 @@ if (typeof(window) === 'object') {
     // Node.js
     module.exports = nThen;
 }
-
+/*:: return nThen; */
 })();
