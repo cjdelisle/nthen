@@ -1,5 +1,5 @@
 var test = require("tap").test;
-var nThen = require("nthen");
+var nThen = require("../index");
 test("make sure nThen works", function (t) {
     var to = setTimeout(function() { throw Error("timeout"); }, 1000);
     var i = 0;
