@@ -1,4 +1,3 @@
-/* globals define */
 /*@flow*/
 /*
  * Caleb James DeLisle
@@ -51,8 +50,7 @@ var nThen /*:Nthen_t*/ = function(next) {
 };
 
 if (typeof(module) !== 'undefined') { module.exports = nThen; }
-// $FlowFixMe
-else if (typeof(define) === 'function' && define.amd) { define(function () { return nThen; }); }
+else if (typeof(window.define) === 'function' && window.define.amd) { window.define(function () { return nThen; }); }
 else { window.nThen = nThen; }
 /*:: return nThen; */
 })();
