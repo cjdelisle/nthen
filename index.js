@@ -10,7 +10,7 @@ type NthenRet_t = { nThen: Nthen_t, orTimeout:((WaitFor_t)=>void, number)=>Nthen
 type Nthen_t = ((WaitFor_t)=>void)=>NthenRet_t;
 module.exports = */ (function() {
 var nThen /*:Nthen_t*/ = function(next) {
-    var funcs = [];
+    var funcs /*:Array<(WaitFor_t)=>void>*/ = [];
     var calls = 0;
     var waitFor = function(func) {
         calls++;

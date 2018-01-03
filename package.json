@@ -13,7 +13,7 @@
     "chaining"
   ],
   "devDependencies": {
-    "flow-bin": "^0.42.0",
+    "flow-bin": "^0.62.0",
     "jshint": "^2.9.4",
     "tap": "~0.4.0"
   },
