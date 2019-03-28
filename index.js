@@ -5,7 +5,7 @@
  * Public Domain or MIT License
  */
 /*::
-type WaitFor_t = (?(...any)=>void)=>((...any)=>void);
+type WaitFor_t = <F>(?F)=>(F);
 type NthenRet_t = { nThen: Nthen_t, orTimeout:((WaitFor_t)=>void, number)=>NthenRet_t };
 type Nthen_t = ((WaitFor_t)=>void)=>NthenRet_t;
 module.exports = */ (function() {
@@ -14,7 +14,7 @@ var nThen /*:Nthen_t*/ = function(next) {
     var timeouts = [];
     var calls = 0;
     var abort;
-    var waitFor = function(func) {
+    var waitFor = ((function(func) {
         calls++;
         return function() {
             if (func) {
@@ -25,7 +25,7 @@ var nThen /*:Nthen_t*/ = function(next) {
                 funcs.shift()(waitFor);
             }
         };
-    };
+    }/*:any*/)/*:WaitFor_t*/);
     waitFor.abort = function () {
         timeouts.forEach(clearTimeout);
         abort = 1;
