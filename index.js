@@ -23,9 +23,10 @@ var nThen /*:Nthen_t*/ = function(next) {
     var waitFor = ((function(func) {
         calls++;
         return function() {
+            var args = Array.prototype.slice.call(arguments);
             var f = function () {
                 if (func) {
-                    func.apply(null, arguments);
+                    func.apply(null, args);
                 }
                 calls = (calls || 1) - 1;
                 while (!calls && funcs.length && !abort) {
