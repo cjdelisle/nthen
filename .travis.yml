@@ -7,6 +7,7 @@ node_js:
   - '0.12'
 
 script:
+  - npm install jshint
   - npm run-script test
   - npm run-script lint
   - npm run-script flow

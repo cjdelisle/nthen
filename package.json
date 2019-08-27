@@ -2,7 +2,7 @@
   "author": "Caleb James DeLisle",
   "name": "nthen",
   "description": "Simple intuitive asynchronous control flow.",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "repository": {
     "type": "git",
     "url": "https://github.com/cjdelisle/nthen"
@@ -13,9 +13,8 @@
     "chaining"
   ],
   "devDependencies": {
-    "flow-bin": "^0.62.0",
-    "jshint": "^2.9.4",
-    "tap": "~0.4.0"
+    "flow-bin": "^0.106.2",
+    "tap": "^14.6.1"
   },
   "scripts": {
     "test": "tap ./test",

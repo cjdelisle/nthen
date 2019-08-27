@@ -5,7 +5,7 @@
  * Public Domain or MIT License
  */
 /*::
-type WaitFor_t = <F>(?F)=>(F);
+type WaitFor_t = { <F>(?F):(F), abort: ()=>void };
 type NthenRet_t = { nThen: Nthen_t, orTimeout:((WaitFor_t)=>void, number)=>NthenRet_t };
 type Nthen_t = ((WaitFor_t)=>void)=>NthenRet_t;
 module.exports = */ (function() {
@@ -14,15 +14,28 @@ var nThen /*:Nthen_t*/ = function(next) {
     var timeouts = [];
     var calls = 0;
     var abort;
+    var inNthen = 0;
+    var callNext = function (arg) {
+        inNthen++;
+        funcs.shift()(arg);
+        inNthen--;
+    };
     var waitFor = ((function(func) {
         calls++;
         return function() {
-            if (func) {
-                func.apply(null, arguments);
-            }
-            calls = (calls || 1) - 1;
-            while (!calls && funcs.length && !abort) {
-                funcs.shift()(waitFor);
+            var f = function () {
+                if (func) {
+                    func.apply(null, arguments);
+                }
+                calls = (calls || 1) - 1;
+                while (!calls && funcs.length && !abort) {
+                    callNext(waitFor);
+                }
+            };
+            if (inNthen) {
+                setTimeout(f);
+            } else {
+                f();
             }
         };
     }/*:any*/)/*:WaitFor_t*/);
@@ -34,7 +47,9 @@ var nThen /*:Nthen_t*/ = function(next) {
         nThen: function(next) {
             if (!abort) {
                 if (!calls) {
+                    inNthen++;
                     next(waitFor);
+                    inNthen--;
                 } else {
                     funcs.push(next);
                 }
@@ -47,9 +62,11 @@ var nThen /*:Nthen_t*/ = function(next) {
             var cto;
             var timeout = setTimeout(function() {
                 while (funcs.shift() !== cto) { }
+                inNthen++;
                 func(waitFor);
+                inNthen--;
                 calls = (calls || 1) - 1;
-                while (!calls && funcs.length) { funcs.shift()(waitFor); }
+                while (!calls && funcs.length) { callNext(waitFor); }
             }, milliseconds);
             funcs.push(cto = function() {
                 var idx = timeouts.indexOf(timeout);
