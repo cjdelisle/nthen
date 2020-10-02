@@ -5,12 +5,18 @@
  * Public Domain or MIT License
  */
 /*::
-type WaitFor_t = { <F>(?F):(F), abort: ()=>void };
-type NthenRet_t = { nThen: Nthen_t, orTimeout:((WaitFor_t)=>void, number)=>NthenRet_t };
-type Nthen_t = ((WaitFor_t)=>void)=>NthenRet_t;
+export type Nthen_WaitFor_t = {
+    ((...any)=>any): (...any)=>any,
+    abort: ()=>void
+};
+export type Nthen_Ret_t = {
+    nThen: Nthen_t,
+    orTimeout:((Nthen_WaitFor_t)=>void, number)=>Nthen_Ret_t
+};
+export type Nthen_t = ((Nthen_WaitFor_t)=>void)=>Nthen_Ret_t;
 module.exports = */ (function() {
 var nThen /*:Nthen_t*/ = function(next) {
-    var funcs /*:Array<(WaitFor_t)=>void>*/ = [];
+    var funcs /*:Array<(Nthen_WaitFor_t)=>void>*/ = [];
     var timeouts = [];
     var calls = 0;
     var abort;
@@ -20,18 +26,20 @@ var nThen /*:Nthen_t*/ = function(next) {
         funcs.shift()(arg);
         inNthen--;
     };
-    var waitFor = ((function(func) {
+    var waitFor /*:Nthen_WaitFor_t*/ = function(func) {
         calls++;
         return function() {
             var args = Array.prototype.slice.call(arguments);
             var f = function () {
+                var ret;
                 if (func) {
-                    func.apply(null, args);
+                    ret = func.apply(null, args);
                 }
                 calls = (calls || 1) - 1;
                 while (!calls && funcs.length && !abort) {
                     callNext(waitFor);
                 }
+                return ret;
             };
             if (inNthen) {
                 setTimeout(f);
@@ -39,7 +47,7 @@ var nThen /*:Nthen_t*/ = function(next) {
                 f();
             }
         };
-    }/*:any*/)/*:WaitFor_t*/);
+    };
     waitFor.abort = function () {
         timeouts.forEach(clearTimeout);
         abort = 1;
